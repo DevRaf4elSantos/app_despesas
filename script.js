@@ -242,5 +242,12 @@ function validar(){
         valor.style.border= '1px solid red'
         return false
     }
+    else{
+        let dia = document.getElementById('dia')
+        dia.style.border= '1px solid #d3d3d3'
+        let valor = document.getElementById('valor')
+        valor.style.border= '1px solid #d3d3d3'
+    }
+
     return true
 }
