@@ -9,8 +9,9 @@ class Despesas{
         this.valor = valor
     }
     validarDados(){
+        let dataValida = validar()
         for(let i in this){
-            if(this[i] == null || this[i] == undefined || this[i] == '' || this[i] == ' '){
+            if(this[i] == null || this[i] == undefined || this[i] == '' || this[i] == ' ' || dataValida == false){
                 return false
             } 
         }
@@ -126,6 +127,7 @@ function cadastrarDespesa(){
         valor.value =''
     }
     else{
+
         $('#modalRegistraDespesa').modal('show')
 
         let tituloErro = document.getElementById('modalRegistraDespesaLabel')
@@ -134,7 +136,7 @@ function cadastrarDespesa(){
         tituloErro.className = 'text-danger'
         
         let descricaoErro = document.getElementById('modal-text')
-        descricaoErro.innerHTML= 'Existem campos obrigatórios que não foram preenchidos'
+        descricaoErro.innerHTML= 'Existem campos obrigatórios que não foram preenchidos ou contem dados inválidos'
 
         let btnErro = document.getElementById('btn_modal')
         btnErro.classList = 'btn-success'.remove
@@ -210,4 +212,35 @@ function pesquisarDespesas(){
 
     carregarDespesasCadastradas(resultadoPesquisa, true)
 
+}
+function validar(){
+    let dia = document.getElementById('dia').value
+    let mes = document.getElementById('mes').value
+    let ano = document.getElementById('ano').value
+    let valor = document.getElementById('valor').value
+    if( 
+        dia < 1 || 
+        dia > 31 ||
+        mes == 2 && dia > 29 || 
+        mes == 2 && dia > 28 && ano == 2025 ||
+        mes == 4 && dia == 31|| 
+        mes == 6 && dia == 31|| 
+        mes == 9 && dia == 31|| 
+        mes == 11 && dia == 31
+    
+    )
+    {
+        let dia = document.getElementById('dia')
+        dia.value = ""
+        dia.style.border= '1px solid red'
+        return false
+        
+    } 
+    else if(valor < 0 ){
+        let valor = document.getElementById('valor')
+        valor.value = ""
+        valor.style.border= '1px solid red'
+        return false
+    }
+    return true
 }
